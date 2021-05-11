@@ -29,8 +29,12 @@ declare(strict_types=1);
 namespace PrestaShop\Module\DemoSymfonyForm\Form;
 
 use PrestaShop\PrestaShop\Core\ConstraintValidator\Constraints\TypedRegex;
+use PrestaShopBundle\Form\Admin\Type\CategoryChoiceTreeType;
+use PrestaShopBundle\Form\Admin\Type\FormattedTextareaType;
+use PrestaShopBundle\Form\Admin\Type\SwitchType;
 use PrestaShopBundle\Form\Admin\Type\TranslatableType;
 use PrestaShopBundle\Form\Admin\Type\TranslatorAwareType;
+use PrestaShopBundle\Form\Admin\Type\YesAndNoChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Length;
@@ -42,6 +46,8 @@ class DemoConfigurationType extends TranslatorAwareType
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $disabledCategories = [5];
+
         $builder
             ->add('translatable_type', TranslatableType::class, [
                     'label' => $this->trans('Translatable type', 'Modules.DemoSymfonyForm.Admin'),
@@ -73,6 +79,22 @@ class DemoConfigurationType extends TranslatorAwareType
                         ],
                     ],
                 ]
-            );
+            )
+            ->add('translatable_formatted_text_area_type', TranslatableType::class, [
+                'label' => $this->trans('Translatable formatted text area type', 'Modules.DemoSymfonyForm.Admin'),
+                'help' => $this->trans('Throws error if length is > 30', 'Modules.DemoSymfonyForm.Admin'),
+                'type' => FormattedTextareaType::class,
+                'required' => false,
+                'options' => [
+                    'constraints' => [
+                        new Length([
+                            'max' => 30,
+                        ]),
+                    ],
+                ],
+            ])
+            ->add('category_choice_tree_type', CategoryChoiceTreeType::class, [
+                'disabled_values' => $disabledCategories,
+            ]);
     }
 }

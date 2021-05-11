@@ -31,4 +31,6 @@ $(document).ready(function () {
         'TranslatableInput',
       ],
   );
+
+    new window.prestashop.component.ChoiceTree('#form_category_choice_tree_type');
 });
