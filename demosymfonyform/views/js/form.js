@@ -29,8 +29,11 @@ $(document).ready(function () {
         'TranslatableField',
         'TinyMCEEditor',
         'TranslatableInput',
+        'GeneratableInput',
+        'TextWithLengthCounter',
       ],
   );
 
+    window.prestashop.instance.generatableInput.attachOn('.js-generator-btn');
     new window.prestashop.component.ChoiceTree('#form_category_choice_tree_type');
 });
