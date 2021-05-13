@@ -31,7 +31,7 @@ namespace PrestaShop\Module\DemoSymfonyForm\Form;
 use PrestaShop\PrestaShop\Core\Configuration\DataConfigurationInterface;
 use PrestaShop\PrestaShop\Core\Form\FormDataProviderInterface;
 
-class DemoConfigurationFormDataProvider implements FormDataProviderInterface
+class DemoConfigurationTextFormDataProvider implements FormDataProviderInterface
 {
     /**
      * @var DataConfigurationInterface
