@@ -32,29 +32,18 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
 
-class DemoConfigurationController extends FrameworkBundleAdminController
+class DemoConfigurationMultipleFormsController extends FrameworkBundleAdminController
 {
     public function index(Request $request): Response
     {
-        $textFormDataHandler = $this->get('prestashop.module.demosymfonyform.form.demo_configuration_text_form_data_handler');
-        $choiceFormDataHandler = $this->get('prestashop.module.demosymfonyform.form.demo_configuration_text_form_data_handler');
-
-        $textForm = $textFormDataHandler->getForm();
-        $textForm->handleRequest($request);
+        $choiceFormDataHandler = $this->get('prestashop.module.demosymfonyform.form.demo_configuration_choice_form_data_handler');
 
         $choiceForm = $choiceFormDataHandler->getForm();
         $choiceForm->handleRequest($request);
+        $otherFormDataHandler = $this->get('prestashop.module.demosymfonyform.form.demo_configuration_other_form_data_handler');
 
-        if ($textForm->isSubmitted() && $textForm->isValid()) {
-            $errors = $textFormDataHandler->save($textForm->getData());
-
-            if (empty($errors)) {
-                $this->addFlash('success', $this->trans('Successful update.', 'Admin.Notifications.Success'));
-                return $this->redirectToRoute('demo_configuration_form');
-            }
-
-            $this->flashErrors($errors);
-        }
+        $otherForm = $otherFormDataHandler->getForm();
+        $otherForm->handleRequest($request);
 
         if ($choiceForm->isSubmitted() && $choiceForm->isValid()) {
             $errors = $choiceFormDataHandler->save($choiceForm->getData());
@@ -67,8 +56,9 @@ class DemoConfigurationController extends FrameworkBundleAdminController
             $this->flashErrors($errors);
         }
 
-        return $this->render('@Modules/demosymfonyform/views/templates/admin/form.html.twig', [
-            'demoConfigurationTextForm' => $textForm->createView(),
+        return $this->render('@Modules/demosymfonyform/views/templates/admin/multipleForms.html.twig', [
+            'demoConfigurationChoiceForm' => $choiceForm->createView(),
+            'demoConfigurationOtherForm' => $otherForm->createView(),
         ]);
     }
 }

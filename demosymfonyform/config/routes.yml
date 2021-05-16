@@ -3,3 +3,9 @@ demo_configuration_form:
   methods: [GET, POST]
   defaults:
     _controller: 'PrestaShop\Module\DemoSymfonyForm\Controller\DemoConfigurationController::index'
+
+demo_configuration_multiple_forms:
+  path: /demosymfonyform/configurationMultipleForms
+  methods: [GET, POST]
+  defaults:
+    _controller: 'PrestaShop\Module\DemoSymfonyForm\Controller\DemoConfigurationMultipleFormsController::index'
