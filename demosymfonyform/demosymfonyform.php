@@ -37,6 +37,14 @@ class DemoSymfonyForm extends Module
         $this->version = '1.0.0';
         $this->need_instance = 0;
 
+        $this->tabs = [
+            [
+                'class_name' => 'AdminDemoSymfonyForm',
+                'visible' => true,
+                'name' => 'My fancy tab',
+                'parent_class_name' => 'Sell',
+            ],
+        ];
         $this->bootstrap = true;
         parent::__construct();
 

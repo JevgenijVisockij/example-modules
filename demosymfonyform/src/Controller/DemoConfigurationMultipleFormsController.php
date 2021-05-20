@@ -37,28 +37,51 @@ class DemoConfigurationMultipleFormsController extends FrameworkBundleAdminContr
     public function index(Request $request): Response
     {
         $choiceFormDataHandler = $this->get('prestashop.module.demosymfonyform.form.demo_configuration_choice_form_data_handler');
+        $choiceForm = $choiceFormDataHandler->getForm();
+        $otherFormDataHandler = $this->get('prestashop.module.demosymfonyform.form.demo_configuration_other_form_data_handler');
+        $otherForm = $otherFormDataHandler->getForm();
 
+        return $this->render('@Modules/demosymfonyform/views/templates/admin/multipleForms.html.twig', [
+            'demoConfigurationChoiceForm' => $choiceForm->createView(),
+            'demoConfigurationOtherForm' => $otherForm->createView(),
+        ]);
+    }
+
+    public function saveChoicesForm(Request $request): Response
+    {
+        $choiceFormDataHandler = $this->get('prestashop.module.demosymfonyform.form.demo_configuration_choice_form_data_handler');
         $choiceForm = $choiceFormDataHandler->getForm();
         $choiceForm->handleRequest($request);
-        $otherFormDataHandler = $this->get('prestashop.module.demosymfonyform.form.demo_configuration_other_form_data_handler');
-
-        $otherForm = $otherFormDataHandler->getForm();
-        $otherForm->handleRequest($request);
 
         if ($choiceForm->isSubmitted() && $choiceForm->isValid()) {
             $errors = $choiceFormDataHandler->save($choiceForm->getData());
 
             if (empty($errors)) {
                 $this->addFlash('success', $this->trans('Successful update.', 'Admin.Notifications.Success'));
-                return $this->redirectToRoute('demo_configuration_form');
+            } else {
+                $this->flashErrors($errors);
             }
-
-            $this->flashErrors($errors);
         }
+        return $this->redirectToRoute('demo_configuration_multiple_forms');
 
-        return $this->render('@Modules/demosymfonyform/views/templates/admin/multipleForms.html.twig', [
-            'demoConfigurationChoiceForm' => $choiceForm->createView(),
-            'demoConfigurationOtherForm' => $otherForm->createView(),
-        ]);
+    }
+
+    public function saveOtherForm(Request $request): Response
+    {
+        $otherFormDataHandler = $this->get('prestashop.module.demosymfonyform.form.demo_configuration_other_form_data_handler');
+        $otherForm = $otherFormDataHandler->getForm();
+        $otherForm->handleRequest($request);
+
+        if ($otherForm->isSubmitted() && $otherForm->isValid()) {
+            $errors = $otherFormDataHandler->save($otherForm->getData());
+
+            if (empty($errors)) {
+                $this->addFlash('success', $this->trans('Successful update.', 'Admin.Notifications.Success'));
+            } else {
+                $this->flashErrors($errors);
+            }
+        }
+        return $this->redirectToRoute('demo_configuration_multiple_forms');
+
     }
 }

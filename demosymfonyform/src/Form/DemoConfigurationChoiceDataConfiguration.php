@@ -37,9 +37,14 @@ use PrestaShop\PrestaShop\Core\Tax\Ecotax\ProductEcotaxResetterInterface;
  */
 final class DemoConfigurationChoiceDataConfiguration implements DataConfigurationInterface
 {
-    public const TRANSLATABLE_SIMPLE = 'DEMO_SYMFONY_FORM_TRANSLATABLE_SIMPLE_TYPE';
-    public const TRANSLATABLE_TEXT_AREA = 'DEMO_SYMFONY_FORM_TRANSLATABLE_TEXT_AREA_TYPE';
-    public const TRANSLATABLE_FORMATTED_TEXT_AREA = 'DEMO_SYMFONY_FORM_TRANSLATABLE_FORMATTED_TEXT_AREA_TYPE';
+    public const CATEGORY_CHOICE_TREE_TYPE = 'DEMO_SYMFONY_FORM_CATEGORY_CHOICE_TREE_TYPE';
+    public const COUNTRY_CHOICE_TYPE = 'DEMO_SYMFONY_FORM_COUNTRY_CHOICE_TYPE';
+    public const MATERIAL_CHOICE_TABLE_TYPE = 'DEMO_SYMFONY_FORM_MATERIAL_CHOICE_TABLE_TYPE';
+    public const MATERIAL_CHOICE_TREE_TYPE = 'DEMO_SYMFONY_FORM_MATERIAL_CHOICE_TREE_TYPE';
+    public const MATERIAL_CHOICE_MULTIPLE_CHOICES_TABLE = 'DEMO_SYMFONY_FORM_MATERIAL_CHOICE_MULTIPLE_CHOICES_TABLE';
+    public const SHOP_CHOICES_TREE_TYPE = 'DEMO_SYMFONY_FORM_SHOP_CHOICES_TREE_TYPE';
+    public const SWITCH_TYPE = 'DEMO_SYMFONY_FORM_SWITCH_TYPE';
+    public const YES_AND_NO_TYPE = 'DEMO_SYMFONY_FORM_YES_AND_NO_TYPE';
 
     /**
      * @var ConfigurationInterface
@@ -60,6 +65,31 @@ final class DemoConfigurationChoiceDataConfiguration implements DataConfiguratio
     {
         $return = [];
 
+        if ($categoryChoiceTreeType = $this->configuration->get(static::CATEGORY_CHOICE_TREE_TYPE)) {
+            $return['category_choice_tree_type'] = $categoryChoiceTreeType;
+        }
+        if ($countryChoiceType = $this->configuration->get(static::COUNTRY_CHOICE_TYPE)) {
+            $return['country_choice_type'] = $countryChoiceType;
+        }
+        if ($materialChoiceTableType = $this->configuration->get(static::MATERIAL_CHOICE_TABLE_TYPE)) {
+            $return['material_choice_table_type'] = json_decode($materialChoiceTableType, true);
+        }
+        if ($materialChoiceTreeType = $this->configuration->get(static::MATERIAL_CHOICE_TREE_TYPE)) {
+            $return['material_choice_tree_type'] = $materialChoiceTreeType;
+        }
+        if ($materialChoiceMultipleChoicesTable = $this->configuration->get(static::MATERIAL_CHOICE_MULTIPLE_CHOICES_TABLE)) {
+            $return['material_choice_multiple_choices_table'] = json_decode($materialChoiceMultipleChoicesTable, true);
+        }
+        if ($shopChoicesTreeType = $this->configuration->get(static::SHOP_CHOICES_TREE_TYPE)) {
+            $return['shop_choices_tree_type'] = json_decode($shopChoicesTreeType, true);
+        }
+        if ($switchType = $this->configuration->get(static::SWITCH_TYPE)) {
+            $return['switch_type'] = $switchType;
+        }
+        if ($yesAndNoType = $this->configuration->get(static::YES_AND_NO_TYPE)) {
+            $return['yes_and_no_type'] = $yesAndNoType;
+        }
+
         return $return;
     }
 
@@ -68,6 +98,14 @@ final class DemoConfigurationChoiceDataConfiguration implements DataConfiguratio
      */
     public function updateConfiguration(array $configuration): array
     {
+        $this->configuration->set(static::CATEGORY_CHOICE_TREE_TYPE, $configuration['category_choice_tree_type']);
+        $this->configuration->set(static::COUNTRY_CHOICE_TYPE, $configuration['country_choice_type']);
+        $this->configuration->set(static::MATERIAL_CHOICE_TABLE_TYPE, json_encode($configuration['material_choice_table_type']));
+        $this->configuration->set(static::MATERIAL_CHOICE_TREE_TYPE, $configuration['material_choice_tree_type']);
+        $this->configuration->set(static::MATERIAL_CHOICE_MULTIPLE_CHOICES_TABLE, json_encode($configuration['material_choice_multiple_choices_table']));
+        $this->configuration->set(static::SHOP_CHOICES_TREE_TYPE, json_encode($configuration['shop_choices_tree_type']));
+        $this->configuration->set(static::SWITCH_TYPE, $configuration['switch_type']);
+        $this->configuration->set(static::YES_AND_NO_TYPE, $configuration['yes_and_no_type']);
         return [];
     }
 

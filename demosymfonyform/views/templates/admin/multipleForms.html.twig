@@ -29,7 +29,7 @@
 
 
 {% block content %}
-  {{ form_start(demoConfigurationChoiceForm) }}
+  {{ form_start(demoConfigurationChoiceForm, {attr : {class: 'form'}, action: path('demo_configuration_choices_form_save') }) }}
   <div class="card">
     <h3 class="card-header">
       <i class="material-icons">settings</i> {{ 'Choice form types'|trans({}, 'Modules.DemoSymfonyForm.Admin') }}
@@ -41,7 +41,7 @@
     </div>
     <div class="card-footer">
       <div class="d-flex justify-content-end">
-        <button class="btn btn-primary float-right" id="save-button">
+        <button class="btn btn-primary float-right" id="demo-configuration-choices-form-save-button">
           {{ 'Save'|trans({}, 'Admin.Actions') }}
         </button>
       </div>
@@ -49,7 +49,7 @@
   </div>
   {{ form_end(demoConfigurationChoiceForm) }}
 
-  {{ form_start(demoConfigurationOtherForm) }}
+  {{ form_start(demoConfigurationOtherForm, {attr : {class: 'form'}, action: path('demo_configuration_other_form_save') }) }}
   <div class="card">
     <h3 class="card-header">
       <i class="material-icons">settings</i> {{ 'Other form types'|trans({}, 'Modules.DemoSymfonyForm.Admin') }}

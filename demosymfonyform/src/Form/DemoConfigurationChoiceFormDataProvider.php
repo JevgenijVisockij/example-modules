@@ -36,14 +36,14 @@ class DemoConfigurationChoiceFormDataProvider implements FormDataProviderInterfa
     /**
      * @var DataConfigurationInterface
      */
-    private $demoConfigurationDataConfiguration;
+    private $demoConfigurationChoiceDataConfiguration;
 
     /**
-     * @param DataConfigurationInterface $demoConfigurationDataConfiguration
+     * @param DataConfigurationInterface $demoConfigurationChoiceDataConfiguration
      */
-    public function __construct(DataConfigurationInterface $demoConfigurationDataConfiguration)
+    public function __construct(DataConfigurationInterface $demoConfigurationChoiceDataConfiguration)
     {
-        $this->demoConfigurationDataConfiguration = $demoConfigurationDataConfiguration;
+        $this->demoConfigurationChoiceDataConfiguration = $demoConfigurationChoiceDataConfiguration;
     }
 
     /**
@@ -51,7 +51,7 @@ class DemoConfigurationChoiceFormDataProvider implements FormDataProviderInterfa
      */
     public function getData(): array
     {
-        return $this->demoConfigurationDataConfiguration->getConfiguration();
+        return $this->demoConfigurationChoiceDataConfiguration->getConfiguration();
     }
 
     /**
@@ -59,7 +59,7 @@ class DemoConfigurationChoiceFormDataProvider implements FormDataProviderInterfa
      */
     public function setData(array $data): array
     {
-        return $this->demoConfigurationDataConfiguration->updateConfiguration($data);
+        return $this->demoConfigurationChoiceDataConfiguration->updateConfiguration($data);
     }
 }
 

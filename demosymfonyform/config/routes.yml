@@ -3,9 +3,25 @@ demo_configuration_form:
   methods: [GET, POST]
   defaults:
     _controller: 'PrestaShop\Module\DemoSymfonyForm\Controller\DemoConfigurationController::index'
+    _legacy_controller: AdminDemoSymfonyForm
+    _legacy_link: AdminDemoSymfonyForm
 
 demo_configuration_multiple_forms:
   path: /demosymfonyform/configurationMultipleForms
   methods: [GET, POST]
   defaults:
     _controller: 'PrestaShop\Module\DemoSymfonyForm\Controller\DemoConfigurationMultipleFormsController::index'
+
+
+demo_configuration_choices_form_save:
+  path: /demosymfonyform/configurationMultipleForms/saveChoices
+  methods: [ GET, POST ]
+  defaults:
+    _controller: 'PrestaShop\Module\DemoSymfonyForm\Controller\DemoConfigurationMultipleFormsController::saveChoicesForm'
+
+demo_configuration_other_form_save:
+  path: /demosymfonyform/configurationMultipleForms/saveOther
+  methods: [ GET, POST ]
+  defaults:
+    _controller: 'PrestaShop\Module\DemoSymfonyForm\Controller\DemoConfigurationMultipleFormsController::saveOtherForm'
+
